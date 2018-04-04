@@ -32,10 +32,30 @@ function LetakMarker(peta, titikposisi){
     document.getElementById("lat").value = titikposisi.lat(); 
     document.getElementById("lng").value = titikposisi.lng(); 
  document.getElementById("info").value = titikposisi.info();    
-}  
+} 
 function initialize() { 
   var atribut = { 
    center:new google.maps.LatLng(-5.3971, 105.2668), 
    zoom:15, 
    mapTypeId:google.maps.MapTypeId.ROADMAP 
   }; 
+  
+  var peta = new google.maps.Map(document.getElementById("googleMap"), atribut); 
+  var infoWindow = new google.maps.InfoWindow; 
+  google.maps.event.addListener(peta, 'click', function(event) { 
+    LetakMarker(this, event.latLng); 
+  }); 
+  google.maps.event.addListener(peta,'rightclick',function(event){ 
+  marker.setPosition(null); 
+  }); 
+
+} 
+    function bindInfoWindow(markerpeta, map, infoWindow, html) { 
+      google.maps.event.addListener(markerpeta, 'click', function() { 
+        infoWindow.setContent(html); 
+        infoWindow.open(map, markerpeta); 
+      }); 
+    } 
+
+google.maps.event.addDomListener(window, 'load', initialize);    
+</script> 
