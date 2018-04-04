@@ -2,10 +2,3 @@ body {
   background:#F5DEB3;
   font-family: 'Open Sans', sans-serif;
 }
-.login input[type="submit"]:hover {
-  background: #FFD700;
-}
-/* Buttons' focus effect */
-.login input[type="submit"]:focus {
-  border-color: #05a;
-}
