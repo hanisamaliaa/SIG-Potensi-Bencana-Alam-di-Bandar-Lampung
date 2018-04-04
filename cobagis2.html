@@ -15,5 +15,21 @@
     <li><a href="-">View All Data</a></li>
     <li><a href="-">View Data Katagory 1</a></li>
     <li><a href="-">View Data Katagory 2</a></li>  
-   </ul>
-  <script>
+  </ul>
+  <script> 
+    
+var markerpeta;   
+function LetakMarker(peta, titikposisi){ 
+     
+    if( markerpeta ){ 
+      markerpeta.setPosition(titikposisi); 
+    } else { 
+      markerpeta = new google.maps.Marker({ 
+        position: titikposisi, 
+        map: peta 
+      }); 
+    } 
+    document.getElementById("lat").value = titikposisi.lat(); 
+    document.getElementById("lng").value = titikposisi.lng(); 
+ document.getElementById("info").value = titikposisi.info();    
+}  
