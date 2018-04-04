@@ -21,15 +21,21 @@
 var markerpeta;   
 function LetakMarker(peta, titikposisi){ 
      
-    if( markerpeta ){ 
-      markerpeta.setPosition(titikposisi); 
-    } else { 
+   if( markerpeta ){ 
+     markerpeta.setPosition(titikposisi); 
+   } else { 
       markerpeta = new google.maps.Marker({ 
         position: titikposisi, 
         map: peta 
       }); 
-    } 
+   } 
     document.getElementById("lat").value = titikposisi.lat(); 
     document.getElementById("lng").value = titikposisi.lng(); 
  document.getElementById("info").value = titikposisi.info();    
 }  
+function initialize() { 
+  var atribut = { 
+   center:new google.maps.LatLng(-5.3971, 105.2668), 
+   zoom:15, 
+   mapTypeId:google.maps.MapTypeId.ROADMAP 
+  }; 
