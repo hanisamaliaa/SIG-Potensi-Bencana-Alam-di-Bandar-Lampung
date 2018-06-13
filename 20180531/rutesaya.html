@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SIG Bencana Alam di Bandar Lampung</title>
+        <style>
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 400px;
+                
+      }
+      .warna {
+          width:auto;
+          height: 100px;
+          background-color: Darkkhaki;
+          color: black;
+          padding: 20px;
+      }
+      * {margin:0; padding:0;}
+ 
+ body {
+  background-color:#556B2F;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#000;
+ }
+ 
+
+nav {
+margin:auto;
+text-align: center;
+width: 80%;
+} 
+
+nav ul ul {
+display: none;
+}
+
+nav ul li:hover > ul{
+display: block;
+width: 150px;
+}
+
+nav ul {
+background: #53bd84;
+padding: 0 20px;
+list-style: none;
+position: relative;
+display: inline-table;
+width: 100%;
+}
+
+nav ul:after {
+content: ""; 
+clear:both; 
+display: block;
+}
+
+nav ul li{
+float:left;
+}
+
+nav ul li:hover{
+background:#666;
+}
+
+nav ul li:hover a{
+color:#fff;
+}
+
+nav ul li a{
+display: block;
+padding: 10px;
+color: #fff;
+text-decoration: none;
+}
+
+nav ul ul{
+background: #53bd84;
+border-radius: 0px;
+padding: 0;
+position: absolute;
+top:50%;
+}
+
+nav ul ul li{
+float:none;
+border-top: 1px soild #53bd84;
+border-bottom: 1px solid #53bd84;
+position: relative;
+}
+
+nav ul ul li a{
+padding: 2px 15px;
+color: #fff;
+}
+
+nav ul ul li a:hover{
+background-color: #666;
+}
+nav ul ul ul{
+position: absolute;
+left: 20%;
+top: 0;
+}
+#floating-panel {
+        position: absolute;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: white;
+        padding: 5px;
+        border: 1px solid darkcyan;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      #right-panel {
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+        
+      }
+
+      #right-panel select, #right-panel input {
+        font-size: 15px;
+      }
+
+      #right-panel select {
+        width: 100%;
+      }
+
+      #right-panel i {
+        font-size: 12px;
+      }
+      #right-panel {
+        height: 100%;
+        float: right;
+        width: 390px;
+        overflow: auto;
+      }
+      #map {
+        margin-right: 400px;
+      }
+      #floating-panel {
+        background: white;
+        padding: 5px;
+        font-size: 14px;
+        font-family: Arial;
+        border: 1px solid darkcyan;
+        box-shadow: 0 2px 2px rgba(33, 33, 33, 0.4);
+        display: none;
+      }
+      @media print {
+        #map {
+          height: 500px;
+          margin: 0;
+        }
+        #right-panel {
+          float: none;
+          width: auto;
+        }
+      }
+      #floating-panell {
+        position:left;
+        top: 10px;
+        left: 25%;
+        z-index: 5;
+        background-color: Darkkhaki;
+        padding: 5px;
+        border: 1px solid #999;
+        text-align: center;
+        font-family: 'Roboto','sans-serif';
+        line-height: 30px;
+        padding-left: 10px;
+      }
+      .footer {
+                width:auto;
+                height: 10px;
+                background-color:darkcyan;
+                color:white;
+                padding:20px;
+      }
+    </style>
+</head>
+
+<body>
+<body bgcolor= #556B2F>
+</body>
+<body>
+                <br><br><div id="floating-panell">
+                        <b><font  color= "white">Mode Perjalanan</b></font>
+                        <select id="mode">
+                          <option value="DRIVING">Naik Mobil</option>
+                          <option value="WALKING">Jalan Kaki</option>
+                        </select>
+                        </div>
+                <div id="map"></div>
+                <div id="right-panel"></div>
+                <br><br><div id="floating-panel">
+                        <strong>Asal:</strong>
+                        <select id="start">
+                              <option value="Jl. Prof. Dr. Ir. Sumantri Brojonegoro No.1,Gedong Meneng,Rajabasa,Bandar Lampung">Universitas Lampung</option>
+                              <option value="Jl. Kapten Tendean No.2, Palapa, Tj. Karang Pusat, Kota Bandar Lampung, Lampung 35116">BPBD Kota Bandar Lampung</option>
+                              <option value="Jl. Gatot Subroto No.44, Pahoman, Engal, Kota Bandar Lampung, Lampung 35123">BPBD Bumi Waras</option>
+                        </select>
+                        <br>
+                        <strong>Tujuan:</strong>
+                        <select id="end">
+                              <option value="Jl. Prof. Dr. Ir. Sumantri Brojonegoro No.1,Gedong Meneng,Rajabasa,Bandar Lampung">Universitas Lampung</option>
+                              <option value="Jl. Kapten Tendean No.2, Palapa, Tj. Karang Pusat, Kota Bandar Lampung, Lampung 35116">BPBD Kota Bandar Lampung</option>
+                              <option value="Jl. Gatot Subroto No.44, Pahoman, Engal, Kota Bandar Lampung, Lampung 35123">BPBD Bumi Waras</option>
+                      </select>
+                      </div>
+                <script>
+                  function initMap() {
+                    var directionsDisplay = new google.maps.DirectionsRenderer;
+                    var directionsService = new google.maps.DirectionsService;
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                      zoom: 7,
+                      center: {lat:-5.375130, lng:105.253640}
+                    });
+                    directionsDisplay.setMap(map);
+                    directionsDisplay.setPanel(document.getElementById('right-panel'));
+            
+                    
+            
+                    var control = document.getElementById('floating-panel');
+                    control.style.display = 'block';
+                    map.controls[google.maps.ControlPosition.TOP_CENTER].push(control);
+            
+                    var onChangeHandler = function() {
+                      calculateAndDisplayRoute(directionsService, directionsDisplay);
+                    };
+                    calculateAndDisplayRoute(directionsService, directionsDisplay);
+                    document.getElementById('mode').addEventListener('change', function() {
+                      calculateAndDisplayRoute(directionsService, directionsDisplay);
+                    });
+                    document.getElementById('start').addEventListener('change', onChangeHandler);
+                    document.getElementById('end').addEventListener('change', onChangeHandler);
+                  }
+            
+                  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+                    var start = document.getElementById('start').value;
+                    var end = document.getElementById('end').value;
+                    var selectedMode = document.getElementById('mode').value;
+                    directionsService.route({
+                      origin: start,
+                      destination: end,
+                      travelMode: google.maps.TravelMode[selectedMode]
+                    }, function(response, status) {
+                      if (status === 'OK') {
+                        directionsDisplay.setDirections(response);
+                      } else {
+                        window.alert('Directions request failed due to ' + status);
+                      }
+                    });
+                  }
+                </script><script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvXPCG6vn9t06IlSj_lSmoiguC7MGRQGc&callback=initMap&language=in&region=ID"></script>
+<div style='text-align: right;position: fixed;z-index:9999999;bottom: 0; width: 100%;cursor: pointer;line-height: 0;display:block !important;'><a title="Hosted on free web hosting 000webhost.com. Host your own website for FREE." target="_blank" href="https://www.000webhost.com/?utm_source=000webhostapp&amp;utm_campaign=000_logo&amp;utm_medium=website_sisteminformasigeografiskostbdl&amp;utm_content=footer_img"><img src="https://cdn.rawgit.com/000webhost/logo/e9bd13f7/footer-powered-by-000webhost-white2.png"  alt="www.000webhost.com"></a></div></body>
+</html>
