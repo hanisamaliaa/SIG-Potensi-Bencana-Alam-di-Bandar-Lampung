@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>SIG Bencana Alam di Bandar Lampung</title>
+    <style>
+      #map {
+                background-color: gray;
+                width: 100%;
+                height: 400px;
+      }
+      .warna {
+          width:auto;
+          height: 100px;
+          background-color: Darkkhaki;
+          color: black;
+          padding: 20px;
+      }
+      * {margin:0; padding:0;}
+ 
+ body {
+  background-color:#556B2F;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#000;
+ }
+ 
+
+nav {
+margin:auto;
+text-align: center;
+width: 80%;
+} 
+
+nav ul ul {
+display: none;
+}
+
+nav ul li:hover > ul{
+display: block;
+width: 150px;
+}
+
+nav ul {
+background: #53bd84;
+padding: 0 20px;
+list-style: none;
+position: relative;
+display: inline-table;
+width: 100%;
+}
+
+nav ul:after {
+content: ""; 
+clear:both; 
+display: block;
+}
+
+nav ul li{
+float:left;
+}
+
+nav ul li:hover{
+background:#666;
+}
+
+nav ul li:hover a{
+color:#fff;
+}
+
+nav ul li a{
+display: block;
+padding: 10px;
+color: #fff;
+text-decoration: none;
+}
+
+nav ul ul{
+background: #53bd84;
+border-radius: 0px;
+padding: 0;
+position: absolute;
+top:50%;
+}
+
+nav ul ul li{
+float:none;
+border-top: 1px soild #53bd84;
+border-bottom: 1px solid #53bd84;
+position: relative;
+}
+
+nav ul ul li a{
+padding: 2px 15px;
+color: #fff;
+}
+
+nav ul ul li a:hover{
+background-color: #666;
+}
+nav ul ul ul{
+position: absolute;
+left: 20%;
+top: 0;
+}
+      html{
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+      }
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 3px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+      #legend img {
+        vertical-align: middle;
+      }
+    </style>
+  </head>
+  <body>
+      <body bgcolor= #556B2F>
+          <center><font size="100" face="Century Gothic">SIG Bencana Alam di Bandar Lampung</font></center>
+          <div class="menu">
+          
+                  <nav>
+                          <ul>
+                              <li><a href="utama.html">Home</a></li>
+                              <li><a href="#">Bencana Alam</a>
+                                  <ul>
+                                      <li><a href="kedua.html">Semua Potensi</a></li>
+                                      <li><a href="potensibanjir.html">Potensi Banjir</a></li>
+                                      <li><a href="potensilongsor.html">Potensi Longsor</a></li>
+                                      <li><a href="potensitsunami.html">Potensi Tsunami</a></li>
+                                      <li><a href="potensigempabumi.html">Potensi Gempa</a></li>
+                                  </ul>
+                              </li>
+                              <li><a href="#">View Polygon</a>
+                                  <ul>
+                                      <li><a href="polygonsemua.html">Semua Polygon</a></li>
+                                      <li><a href="polygonbanjir.html">Polygon Banjir</a></li>
+                                      <li><a href="polygonlongsor.html">Polygon Longsor</a></li>
+                                      <li><a href="polygontsunami.html">Polygon Tsunami</a></li>
+                                      <li><a href="polygongempabumi.html">Polygon Gempa</a></li>
+                                  </ul>
+                              </li>
+                            <li><a href="#">Elevation</a>
+                              <ul>
+                                  <li><a href="elevation.html">Bandar Lampung</a>
+                              </ul>
+                            </li>
+                            <li><a href="#">Penanggulangan</a>
+                              <ul>
+                                  <li><a href="penangbanjir.html">Banjir</a></li>
+                                  <li><a href="penanggempa.html">Gempa Bumi</a></li>
+                                  <li><a href="penanglongsor.html">Longsor</a></li>
+                                  <li><a href="penangtsunami.html">Tsunami</a></li>
+                              </ul>
+                              </li>
+                              <li><a href="#">Pos Badan Penanggulangan Bencana Alam</a>
+                                  <ul>
+                                      <li><a href="overlays.html">BPBD Kota Bandar Lampung</a></li>
+                                      <li><a href="penanggempa.html">Gempa Bumi</a></li>
+                                      <li><a href="penanglongsor.html">Longsor</a></li>
+                                      <li><a href="penangtsunami.html">Tsunami</a></li>
+                                  </ul>
+                                  </li>
+                            <li><a href="contacus.html" >Contact Us</a></li>
+                          </li>
+                              <li><a href="#">Lainnya</a>
+                              
+                                  <ul>
+                                      <li><a href="rutesaya.html">Petunjuk Rute</a></li>
+                                  </ul>
+                          </ul>
+                      </nav>
+          
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <br>
+                          <script src="http://maps.googleapis.com/maps/api/js"></script>
+                  </body>
+    <div id="map"></div>
+    <div id="legend"><h3>Legend</h3></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 8,
+          center: new google.maps.LatLng(-5.4284046, 105.2006967),
+          mapTypeId: 'roadmap'
+        });
+
+        var iconBase = '';
+        var icons = {
+          banjir: {
+            name: 'Banjir',
+            icon: iconBase + 'banjir.png'
+          },
+          longsor: {
+            name: 'Longsor',
+            icon: iconBase + 'longsor.png'
+          },
+          tsunami: {
+            name: 'Tsunami',
+            icon: iconBase + 'tsunami.png'
+          },
+          gempa: {
+            name: 'Gempa',
+            icon: iconBase + 'gempa.png'
+          }
+        };
+
+       var features = [
+          {
+            position: new google.maps.LatLng(-5.365603,105.232929),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.440872,105.284436),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.3819934,105.2759648),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.3832054,105.2716783),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.3864358,105.3097017),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.388471,105.3108423),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.4034792,105.2804992),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.4491928,105.3101915),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.3805726,105.2165555),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.4203552,105.2599052),
+            type: 'banjir'
+          }, {
+            position: new google.maps.LatLng(-5.458268, 105.260638),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.4491928, 105.3101915),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.430553,105.2458111),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.487621,  105.250928),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.4037687, 105.2019295),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.4000452, 105.2721273),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.4142806, 105.2867776),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.4641159, 105.3218997),
+            type: 'longsor'
+          }, {
+            position: new google.maps.LatLng(-5.458268, 105.260638),
+            type: 'tsunami'
+          }, {
+            position: new google.maps.LatLng(-5.487621, 105.250928),
+            type: 'tsunami'
+          }, {
+            position: new google.maps.LatLng(-5.450411, 105.304689),
+            type: 'tsunami'
+          }, {
+            position: new google.maps.LatLng(-5.4434919, 105.2853144),
+            type: 'tsunami'
+          }, {
+            position: new google.maps.LatLng(-5.494432, 105.324097),
+            type: 'tsunami'
+          }, {
+            position: new google.maps.LatLng(-5.4491928, 105.3101915),
+            type: 'gempa'
+          }, {
+            position: new google.maps.LatLng(-5.4641159, 105.3218997),
+            type: 'gempa'
+          }, {
+            position: new google.maps.LatLng(-5.430553, 105.2458111),
+            type: 'gempa'
+          }, {
+            position: new google.maps.LatLng(-5.443467, 105.2370339),
+            type: 'gempa'
+          }, {
+            position: new google.maps.LatLng(-5.4151811, 105.2516629),
+            type: 'gempa'
+          }
+        ];
+
+
+        // Create markers.
+        features.forEach(function(feature) {
+          var marker = new google.maps.Marker({
+            position: feature.position,
+            icon: icons[feature.type].icon,
+            map: map
+          });
+        });
+
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDvXPCG6vn9t06IlSj_lSmoiguC7MGRQGc&callback=initMap">
+    </script>
+  </body>
+</html>
