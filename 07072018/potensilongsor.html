@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SIG Bencana Alam di Bandar Lampung</title>
+        <style>
+            #map {
+                background-color: gray;
+                width: 100%;
+                height: 400px;
+      }
+      .warna {
+          width:auto;
+          height: 100px;
+          background-color: Darkkhaki;
+          color: black;
+          padding: 20px;
+      }
+      * {margin:0; padding:0;}
+ 
+ body {
+  background-color:#556B2F;
+  font-family:Arial, Helvetica, sans-serif;
+  color:#000;
+ }
+ 
+
+nav {
+margin:auto;
+text-align: center;
+width: 80%;
+} 
+
+nav ul ul {
+display: none;
+}
+
+nav ul li:hover > ul{
+display: block;
+width: 150px;
+}
+
+nav ul {
+background: #53bd84;
+padding: 0 20px;
+list-style: none;
+position: relative;
+display: inline-table;
+width: 100%;
+}
+
+nav ul:after {
+content: ""; 
+clear:both; 
+display: block;
+}
+
+nav ul li{
+float:left;
+}
+
+nav ul li:hover{
+background:#666;
+}
+
+nav ul li:hover a{
+color:#fff;
+}
+
+nav ul li a{
+display: block;
+padding: 10px;
+color: #fff;
+text-decoration: none;
+}
+
+nav ul ul{
+background: #53bd84;
+border-radius: 0px;
+padding: 0;
+position: absolute;
+top:50%;
+}
+
+nav ul ul li{
+float:none;
+border-top: 1px soild #53bd84;
+border-bottom: 1px solid #53bd84;
+position: relative;
+}
+
+nav ul ul li a{
+padding: 2px 15px;
+color: #fff;
+}
+
+nav ul ul li a:hover{
+background-color: #666;
+}
+nav ul ul ul{
+position: absolute;
+left: 20%;
+top: 0;
+}
+    </style>
+</head>
+
+<body>
+<body bgcolor= #556B2F>
+<center><font size="100" face="Century Gothic">SIG Bencana Alam di Bandar Lampung</font></center>
+<div class="menu">
+
+        <nav>
+                <ul>
+                    <li><a href="utama.html">Home</a></li>
+                    <li><a href="#">Bencana Alam</a>
+                        <ul>
+                            <li><a href="kedua.html">Semua Potensi</a></li>
+                            <li><a href="potensibanjir.html">Potensi Banjir</a></li>
+                            <li><a href="potensilongsor.html">Potensi Longsor</a></li>
+                            <li><a href="potensitsunami.html">Potensi Tsunami</a></li>
+                            <li><a href="potensigempabumi.html">Potensi Gempa</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">View Polygon</a>
+                        <ul>
+                            <li><a href="polygonsemua.html">Semua Polygon</a></li>
+                            <li><a href="polygonbanjir.html">Polygon Banjir</a></li>
+                            <li><a href="polygonlongsor.html">Polygon Longsor</a></li>
+                            <li><a href="polygontsunami.html">Polygon Tsunami</a></li>
+                            <li><a href="polygongempabumi.html">Polygon Gempa</a></li>
+                        </ul>
+                    </li>
+                  <li><a href="#">Elevation</a>
+                    <ul>
+                        <li><a href="elevation.html">Bandar Lampung</a>
+                    </ul>
+                  </li>
+                  <li><a href="#">Penanggulangan</a>
+                    <ul>
+                        <li><a href="penangbanjir.html">Banjir</a></li>
+                        <li><a href="penanggempa.html">Gempa Bumi</a></li>
+                        <li><a href="penanglongsor.html">Longsor</a></li>
+                        <li><a href="penangtsunami.html">Tsunami</a></li>
+                    </ul>
+                    </li>
+                    <li><a href="#">Pos Badan Penanggulangan Bencana Alam</a>
+                        <ul>
+                            <li><a href="overlays.html">BPBD Kota Bandar Lampung</a></li>
+                            <li><a href="penanggempa.html">Gempa Bumi</a></li>
+                            <li><a href="penanglongsor.html">Longsor</a></li>
+                            <li><a href="penangtsunami.html">Tsunami</a></li>
+                        </ul>
+                        </li>
+                  <li><a href="contacus.html" >Contact Us</a></li>
+                </li>
+                    <li><a href="#">Lainnya</a>
+                    
+                        <ul>
+                            <li><a href="rutesaya.html">Petunjuk Rute</a></li>
+                        </ul>
+                </ul>
+            </nav>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <script src="http://maps.googleapis.com/maps/api/js"></script>
+    </body>
+
+<body> 
+	<div id="kotak">
+		<div id="map" style="width:100%;height:400px;"></div>
+		</form>
+	</div>   
+</body> 
+
+<script>
+
+function initialize(){
+	var mapOptions = {
+		zoom:9,
+		center: new google.maps.LatLng(-5.4284046, 105.2006967),
+	};
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
+	
+	infoWindow = new google.maps.InfoWindow();
+	var infowindow = new google.maps.InfoWindow();
+	
+	var contentString;
+	infowindow.setContent(contentString);
+  
+	var marker = new google.maps.Marker();
+	marker.addListener('click',function(){
+		infowindow.open(map,marker);
+  ``});
+	marker.setMap(map);
+	
+	var infoWin = new google.maps.InfoWindow();
+    var labels = 'Bandar Lampung';
+        
+    var markers = locations.map(function(location, i) {
+        var marker = new google.maps.Marker({
+            position: location,
+            label: labels[i % labels.length]
+        });
+		google.maps.event.addListener(marker, 'click', function(evt) {
+			infoWin.setContent(location.info);
+			infoWin.open(map, marker);
+		})
+		return marker;
+    }); 
+    
+	console.log(locations);
+    console.log(markers);
+
+    var markerCluster = new MarkerClusterer(map, markers,
+        {imagePath: 'images/m'});
+        
+    var d = markerCluster.distanceBetweenPoints_(markers[2].getPosition(),markers[4].getPosition());
+    console.log(markerCluster.getCalculator());
+
+
+    }
+	
+	function showArrays(event) {
+		var vertices = this.getPath();
+		var contentString = '<b>' + this.name + '</b>';
+		infoWindow.setPosition(event.latLng);
+		infoWindow.setContent(contentString);
+		infoWindow.open(map);
+	}
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+     var locations = [
+        {lat:  -5.458268, lng:  105.260638, info: "<p> Potensi Longsor, Teluk Betung Barat"},
+        {lat: -5.4491928, lng: 105.3101915, info: "<p> Potensi Longsor, Teluk Betung Selatan"},
+        {lat: -5.430553,  lng: 105.2458111, info: "<p> Potensi Longsor, Teluk Betung Utara"},
+        {lat: -5.487621,  lng: 105.250928, info: "<p> Potensi Longsor, Teluk Betung Timur"},
+		{lat: -5.4037687, lng: 105.2019295, info: "<p> Potensi Longsor, Kemiling"},
+		{lat: -5.4000452, lng: 105.2721273, info: "<p> Potensi Longsor, Sukabumi"},
+		{lat: -5.4142806, lng: 105.2867776, info: "<p> Potensi Longsor, Kedamaian"},
+		{lat: -5.4641159, lng: 105.3218997, info: "<p> Potensi Longsor, Panjang"}
+      ]
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDZB9ZJU2sial0Lcy25X2Rv0bti9HlFd1o&callback= ap"> </script> 
+<script>
+        var map = null;
+        var center = {lat: -5.4284046, lng:105.2006967};
+        var infowindow;
+
+        var config = {
+    apiKey: "AIzaSyAfT5FhXw8b48pj5OJW92EcuxToI1fimm4",
+    authDomain: "longsor-54d1b.firebaseapp.com",
+    databaseURL: "https://longsor-54d1b.firebaseio.com",
+    projectId: "longsor-54d1b",
+    storageBucket: "",
+    messagingSenderId: "573973792128"
+  };
+  firebase.initializeApp(config);
+
+        var db = firebase.database();
+        var dataRef = db.ref('longsor')
+
+        dataRef.on('value', showData, showError);
+        function showData(data){
+            //console.log(data.val());
+            map.data.addGeoJson(data.val()); 
+            map.data.setStyle({
+                fillColor :'#352702',
+                strokeWeight: 0.2
+            });
+            map.data.addListener('click', function(event){
+                infoWindowContent = event.feature.getProperty('DESA')+"<br>"+event.feature.getProperty('KECAMATAN');
+                infowindow.setContent(infoWindowContent);
+                infowindow.setPosition(event.latLng);
+                infowindow.open(map);
+        
+            });
+        }
+        function showError(err){
+            console.log(err);
+        }
+        function initMap(){
+            map = new google.maps.Map(document.getElementById('map'),{
+                zoom: 11,
+                center: center
+            });
+            infowindow = new google.maps.InfoWindow();
+        }
+    </script>
+<script src="src/markerclusterer.js"></script>
+</html>
